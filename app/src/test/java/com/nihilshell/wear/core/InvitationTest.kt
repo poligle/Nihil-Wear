@@ -8,14 +8,14 @@ import org.junit.Test
 
 class InvitationTest {
     private val pin = "8-eMVPli0fpzjeUBe-b_bmRtjDMwo1bNYXaVTyPSbVc"
-    private val qr = "nihil-deck://pair?v=1&name=thinkpad&hosts=192.168.1.20,100.64.0.7&port=64445&code=7JTX39F4&pin=$pin"
+    private val qr = "nihil-deck://pair?v=1&name=nihil&hosts=192.168.1.20,100.64.0.7&port=64445&code=7JTX39F4&pin=$pin"
 
     @Test
     fun readsTheComputersQr() {
         val invitation = Invitation.parse(qr)
         assertNotNull(invitation)
         invitation!!
-        assertEquals("thinkpad", invitation.name)
+        assertEquals("nihil", invitation.name)
         assertEquals(listOf("192.168.1.20", "100.64.0.7"), invitation.hosts)
         assertEquals(64445, invitation.port)
         assertEquals("7JTX39F4", invitation.code)
@@ -43,7 +43,7 @@ class InvitationTest {
         assertNull(Invitation.parse(qr.replace(pin, pin.dropLast(1))))
         assertNull(Invitation.parse(qr.replace("port=64445", "port=70000")))
         assertNull(Invitation.parse(qr.replace("hosts=192.168.1.20,100.64.0.7", "hosts=")))
-        assertNull(Invitation.parse(qr.replace("192.168.1.20", "thinkpad.local")))
+        assertNull(Invitation.parse(qr.replace("192.168.1.20", "nihil.local")))
         assertNull(Invitation.parse(qr.replace("192.168.1.20", "192.168.1.256")))
     }
 

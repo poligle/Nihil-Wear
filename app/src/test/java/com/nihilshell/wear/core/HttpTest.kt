@@ -28,14 +28,14 @@ class HttpTest {
     @Test
     fun readsTwoAnswersOnOneConnection() {
         val stream = ByteArrayInputStream(
-            ("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: 31\r\n\r\n" +
-                "{\"deck\": 1, \"name\": \"thinkpad\"}" +
+            ("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: 28\r\n\r\n" +
+                "{\"deck\": 1, \"name\": \"nihil\"}" +
                 "HTTP/1.1 401 Unauthorized\r\ncontent-length: 21\r\nConnection: close\r\n\r\n{\"error\": \"unpaired\"}").toByteArray(),
         )
         val first = Http.read(stream)
         assertEquals(200, first.status)
         assertEquals("application/json", first.headers["content-type"])
-        assertEquals("{\"deck\": 1, \"name\": \"thinkpad\"}", first.text)
+        assertEquals("{\"deck\": 1, \"name\": \"nihil\"}", first.text)
         val second = Http.read(stream)
         assertEquals(401, second.status)
         assertEquals("{\"error\": \"unpaired\"}", second.text)

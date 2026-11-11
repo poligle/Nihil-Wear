@@ -24,7 +24,7 @@ class ReportTest {
     @Test
     fun quotesWhatItWrites() {
         assertEquals("null", Json.quote(null))
-        assertEquals("\"Galaxy Watch7 (\\\"PDCJ\\\")\"", Json.quote("Galaxy Watch7 (\"PDCJ\")"))
+        assertEquals("\"Watch (\\\"4F2A\\\")\"", Json.quote("Watch (\"4F2A\")"))
         assertEquals("\"a\\\\b\\nc\\u0001\"", Json.quote("a\\b\nc\u0001"))
     }
 
@@ -34,9 +34,9 @@ class ReportTest {
             run = 3,
             state = "done",
             at = 1000L,
-            device = "Galaxy Watch7",
+            device = "Watch",
             sdk = 36,
-            computer = "thinkpad",
+            computer = "nihil",
             pairing = "paired",
             default = Way("bluetooth", null, "192.168.1.20", listOf(Round(30, 60, 20, 9)), 95, null),
             wifi = Way("wifi", error = "unavailable"),
@@ -44,7 +44,7 @@ class ReportTest {
             rotary = 4,
         )
         assertEquals(
-            """{"run":3,"state":"done","at":1000,"device":"Galaxy Watch7","sdk":36,"computer":"thinkpad","pairing":"paired",""" +
+            """{"run":3,"state":"done","at":1000,"device":"Watch","sdk":36,"computer":"nihil","pairing":"paired",""" +
                 """"default":{"network":"bluetooth","waited":null,"address":"192.168.1.20","cold":110,"warm":9,"state":95,"error":null,""" +
                 """"rounds":[{"connect":30,"handshake":60,"hello":20,"again":9}]},""" +
                 """"wifi":{"network":"wifi","waited":null,"address":null,"cold":null,"warm":null,"state":null,"error":"unavailable","rounds":[]},""" +

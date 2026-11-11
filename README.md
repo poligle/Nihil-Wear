@@ -31,8 +31,6 @@ It is Kotlin on the Android framework alone, like the phone: no AndroidX, no Com
 libraries beyond the Kotlin standard library. It needs Wear OS 4 or newer, the oldest that
 installs a Watch Face Format watch face, as NIHIL's own will be.
 
-> Being made on a Galaxy Watch7, for any watch with Wear OS 4 or newer.
-
 ---
 
 ## Try it
