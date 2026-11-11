@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- NIHIL's watch face, in Watch Face Format 1: the time in dots, sixty LEDs round the edge with
+  the seconds lit, the battery as ten LEDs, red at 15 % or less, and a LED for what is unread.
+  A tap on the time opens NIHIL. Drawn by `tools/watchface.py`, its own APK.
+- Home: the computer's deck, the watch's apps and the network test in a list the bezel or the
+  crown turns, with a tick for each; the one in the middle lit in ink, the rest grey.
+- The deck: the computer's music and its keys, its volume on the bezel or the crown and round
+  the edge, its caffeine, night light and lock. Over the default network, or Wi-Fi asked for
+  when that doesn't reach the computer, let go when the deck closes.
+- `tools/watch install` puts NIHIL and its watch face on the watch; the version of both is in
+  `gradle.properties`.
 - The first screen: a network test, for the deck the watch will be. It measures how the
   watch reaches the computer over the default network (on most watches, the phone's
   Bluetooth) and over Wi-Fi asked for, each with a new connection and again on the same one,

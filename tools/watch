@@ -9,7 +9,8 @@
 #                                     options, Wireless debugging, Pair new device
 #   tools/watch connect HOST:PORT     adb connects: the address on Wireless
 #                                     debugging's own screen
-#   tools/watch install [APK]         this checkout's debug build, or an APK
+#   tools/watch install [APK...]      this checkout's debug builds, NIHIL and its
+#                                     watch face, or the APKs given
 #   tools/watch invite                a code from nihil-deck, to the watch: it
 #                                     pairs with this computer as the test opens
 #   tools/watch probe [--json]        opens the test, prints what it measured
@@ -107,12 +108,15 @@ pretty() {
 }
 
 command_install() {
-    local serial=$1 apk=${2:-}
-    if [ -z "$apk" ]; then
+    local serial=$1 apk
+    shift
+    if [ $# -eq 0 ]; then
         (cd "$root" && ./gradlew -q assembleDebug)
-        apk=$root/app/build/outputs/apk/debug/app-debug.apk
+        set -- "$root/app/build/outputs/apk/debug/app-debug.apk" "$root/watchface/build/outputs/apk/debug/watchface-debug.apk"
     fi
-    adb -s "$serial" install -r "$apk"
+    for apk in "$@"; do
+        adb -s "$serial" install -r "$apk"
+    done
 }
 
 command_invite() {

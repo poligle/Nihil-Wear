@@ -66,7 +66,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: nihil-wear-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            watchface/build/outputs/apk/debug/watchface-debug.apk
           if-no-files-found: error
       # Android lint, as a report for now: it doesn't fail the build until what
       # it finds is fixed or put in a baseline; then drop continue-on-error.

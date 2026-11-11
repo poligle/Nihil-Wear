@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    NIHIL's watch face, in Watch Face Format 1 (Wear OS 4 and newer). The time
+    in dots; sixty LEDs round the edge, every one there and the unlit faintly,
+    the seconds' one lit as the desktop's light runs round its frame; the
+    battery as ten LEDs, red at 15 % or less; a LED over the time while
+    something is unread. A tap on the time opens NIHIL (nihil-wear://home).
+    Drawn by tools/watchface.py: change that, not this.
+-->
+<WatchFace width="450" height="450" clipShape="CIRCLE">
+    <Scene backgroundColor="#FF000000">
+        <PartDraw name="edge" x="0" y="0" width="450" height="450">
+            <Variant mode="AMBIENT" target="alpha" value="0"/>
+            <Ellipse x="221.5" y="10.5" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="243.6" y="11.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="265.4" y="15.1" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="286.7" y="20.8" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="307.3" y="28.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="327.0" y="38.8" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="345.5" y="50.8" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="362.7" y="64.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="378.3" y="80.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="392.2" y="97.5" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="404.2" y="116.0" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="414.3" y="135.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="422.2" y="156.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="427.9" y="177.6" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="431.3" y="199.4" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="432.5" y="221.5" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="431.3" y="243.6" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="427.9" y="265.4" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="422.2" y="286.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="414.3" y="307.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="404.2" y="327.0" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="392.2" y="345.5" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="378.3" y="362.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="362.7" y="378.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="345.5" y="392.2" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="327.0" y="404.2" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="307.3" y="414.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="286.7" y="422.2" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="265.4" y="427.9" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="243.6" y="431.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="221.5" y="432.5" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="199.4" y="431.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="177.6" y="427.9" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="156.3" y="422.2" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="135.7" y="414.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="116.0" y="404.2" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="97.5" y="392.2" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="80.3" y="378.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="64.7" y="362.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="50.8" y="345.5" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="38.8" y="327.0" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="28.7" y="307.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="20.8" y="286.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="15.1" y="265.4" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="11.7" y="243.6" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="10.5" y="221.5" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="11.7" y="199.4" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="15.1" y="177.6" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="20.8" y="156.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="28.7" y="135.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="38.8" y="116.0" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="50.8" y="97.5" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="64.7" y="80.3" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="80.3" y="64.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="97.5" y="50.8" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="116.0" y="38.8" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="135.7" y="28.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="156.3" y="20.8" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="177.6" y="15.1" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+            <Ellipse x="199.4" y="11.7" width="7" height="7"><Fill color="#FF333333"/></Ellipse>
+        </PartDraw>
+        <PartDraw name="second" x="0" y="0" width="450" height="450" pivotX="0.5" pivotY="0.5">
+            <Transform target="angle" value="[SECOND] * 6"/>
+            <Variant mode="AMBIENT" target="alpha" value="0"/>
+            <Ellipse x="221.5" y="10.5" width="7" height="7"><Fill color="#FFF2F2F2"/></Ellipse>
+        </PartDraw>
+        <Condition>
+            <Expressions>
+                <Expression name="unread">[UNREAD_NOTIFICATION_COUNT] &gt; 0</Expression>
+            </Expressions>
+            <Compare expression="unread">
+                <PartDraw name="unread" x="0" y="0" width="450" height="450">
+                    <Ellipse x="220.0" y="111.0" width="10" height="10"><Fill color="#FFF2F2F2"/></Ellipse>
+                </PartDraw>
+            </Compare>
+        </Condition>
+        <Group name="time" x="0" y="138" width="450" height="132">
+            <Launch target="nihil-wear://home"/>
+            <DigitalClock x="0" y="0" width="450" height="132">
+                <TimeText format="hh:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER" x="0" y="0" width="450" height="132">
+                    <Font family="doto" size="112" color="#FFF2F2F2"/>
+                </TimeText>
+            </DigitalClock>
+            <Variant mode="AMBIENT" target="alpha" value="170"/>
+        </Group>
+        <PartText name="date" x="0" y="282" width="450" height="40">
+            <Variant mode="AMBIENT" target="alpha" value="140"/>
+            <Text align="CENTER">
+                <Font family="space_mono" size="24" color="#FFA3A3A3">
+                    <Template>%s %s<Parameter expression="[DAY_OF_WEEK_S]"/><Parameter expression="[DAY]"/></Template>
+                </Font>
+            </Text>
+        </PartText>
+        <Group name="battery" x="0" y="0" width="450" height="450">
+            <Condition>
+                <Expressions>
+                    <Expression name="low">[BATTERY_PERCENT] &lt;= 15 &amp;&amp; [BATTERY_PERCENT] &gt; 0</Expression>
+                    <Expression name="lit">[BATTERY_PERCENT] &gt; 0</Expression>
+                </Expressions>
+                <Compare expression="low">
+                    <PartDraw name="battery-0-low" x="0" y="0" width="450" height="450">
+                        <Ellipse x="149.0" y="334.0" width="8" height="8"><Fill color="#FFD71921"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Compare expression="lit">
+                    <PartDraw name="battery-0-lit" x="0" y="0" width="450" height="450">
+                        <Ellipse x="149.0" y="334.0" width="8" height="8"><Fill color="#FFF2F2F2"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Default>
+                    <PartDraw name="battery-0" x="0" y="0" width="450" height="450">
+                        <Ellipse x="149.0" y="334.0" width="8" height="8"><Fill color="#FF333333"/></Ellipse>
+                    </PartDraw>
+                </Default>
+            </Condition>
+            <Condition>
+                <Expressions>
+                    <Expression name="low">[BATTERY_PERCENT] &lt;= 15 &amp;&amp; [BATTERY_PERCENT] &gt; 10</Expression>
+                    <Expression name="lit">[BATTERY_PERCENT] &gt; 10</Expression>
+                </Expressions>
+                <Compare expression="low">
+                    <PartDraw name="battery-1-low" x="0" y="0" width="450" height="450">
+                        <Ellipse x="165.0" y="334.0" width="8" height="8"><Fill color="#FFD71921"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Compare expression="lit">
+                    <PartDraw name="battery-1-lit" x="0" y="0" width="450" height="450">
+                        <Ellipse x="165.0" y="334.0" width="8" height="8"><Fill color="#FFF2F2F2"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Default>
+                    <PartDraw name="battery-1" x="0" y="0" width="450" height="450">
+                        <Ellipse x="165.0" y="334.0" width="8" height="8"><Fill color="#FF333333"/></Ellipse>
+                    </PartDraw>
+                </Default>
+            </Condition>
+            <Condition>
+                <Expressions>
+                    <Expression name="low">[BATTERY_PERCENT] &lt;= 15 &amp;&amp; [BATTERY_PERCENT] &gt; 20</Expression>
+                    <Expression name="lit">[BATTERY_PERCENT] &gt; 20</Expression>
+                </Expressions>
+                <Compare expression="low">
+                    <PartDraw name="battery-2-low" x="0" y="0" width="450" height="450">
+                        <Ellipse x="181.0" y="334.0" width="8" height="8"><Fill color="#FFD71921"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Compare expression="lit">
+                    <PartDraw name="battery-2-lit" x="0" y="0" width="450" height="450">
+                        <Ellipse x="181.0" y="334.0" width="8" height="8"><Fill color="#FFF2F2F2"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Default>
+                    <PartDraw name="battery-2" x="0" y="0" width="450" height="450">
+                        <Ellipse x="181.0" y="334.0" width="8" height="8"><Fill color="#FF333333"/></Ellipse>
+                    </PartDraw>
+                </Default>
+            </Condition>
+            <Condition>
+                <Expressions>
+                    <Expression name="low">[BATTERY_PERCENT] &lt;= 15 &amp;&amp; [BATTERY_PERCENT] &gt; 30</Expression>
+                    <Expression name="lit">[BATTERY_PERCENT] &gt; 30</Expression>
+                </Expressions>
+                <Compare expression="low">
+                    <PartDraw name="battery-3-low" x="0" y="0" width="450" height="450">
+                        <Ellipse x="197.0" y="334.0" width="8" height="8"><Fill color="#FFD71921"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Compare expression="lit">
+                    <PartDraw name="battery-3-lit" x="0" y="0" width="450" height="450">
+                        <Ellipse x="197.0" y="334.0" width="8" height="8"><Fill color="#FFF2F2F2"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Default>
+                    <PartDraw name="battery-3" x="0" y="0" width="450" height="450">
+                        <Ellipse x="197.0" y="334.0" width="8" height="8"><Fill color="#FF333333"/></Ellipse>
+                    </PartDraw>
+                </Default>
+            </Condition>
+            <Condition>
+                <Expressions>
+                    <Expression name="low">[BATTERY_PERCENT] &lt;= 15 &amp;&amp; [BATTERY_PERCENT] &gt; 40</Expression>
+                    <Expression name="lit">[BATTERY_PERCENT] &gt; 40</Expression>
+                </Expressions>
+                <Compare expression="low">
+                    <PartDraw name="battery-4-low" x="0" y="0" width="450" height="450">
+                        <Ellipse x="213.0" y="334.0" width="8" height="8"><Fill color="#FFD71921"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Compare expression="lit">
+                    <PartDraw name="battery-4-lit" x="0" y="0" width="450" height="450">
+                        <Ellipse x="213.0" y="334.0" width="8" height="8"><Fill color="#FFF2F2F2"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Default>
+                    <PartDraw name="battery-4" x="0" y="0" width="450" height="450">
+                        <Ellipse x="213.0" y="334.0" width="8" height="8"><Fill color="#FF333333"/></Ellipse>
+                    </PartDraw>
+                </Default>
+            </Condition>
+            <Condition>
+                <Expressions>
+                    <Expression name="low">[BATTERY_PERCENT] &lt;= 15 &amp;&amp; [BATTERY_PERCENT] &gt; 50</Expression>
+                    <Expression name="lit">[BATTERY_PERCENT] &gt; 50</Expression>
+                </Expressions>
+                <Compare expression="low">
+                    <PartDraw name="battery-5-low" x="0" y="0" width="450" height="450">
+                        <Ellipse x="229.0" y="334.0" width="8" height="8"><Fill color="#FFD71921"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Compare expression="lit">
+                    <PartDraw name="battery-5-lit" x="0" y="0" width="450" height="450">
+                        <Ellipse x="229.0" y="334.0" width="8" height="8"><Fill color="#FFF2F2F2"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Default>
+                    <PartDraw name="battery-5" x="0" y="0" width="450" height="450">
+                        <Ellipse x="229.0" y="334.0" width="8" height="8"><Fill color="#FF333333"/></Ellipse>
+                    </PartDraw>
+                </Default>
+            </Condition>
+            <Condition>
+                <Expressions>
+                    <Expression name="low">[BATTERY_PERCENT] &lt;= 15 &amp;&amp; [BATTERY_PERCENT] &gt; 60</Expression>
+                    <Expression name="lit">[BATTERY_PERCENT] &gt; 60</Expression>
+                </Expressions>
+                <Compare expression="low">
+                    <PartDraw name="battery-6-low" x="0" y="0" width="450" height="450">
+                        <Ellipse x="245.0" y="334.0" width="8" height="8"><Fill color="#FFD71921"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Compare expression="lit">
+                    <PartDraw name="battery-6-lit" x="0" y="0" width="450" height="450">
+                        <Ellipse x="245.0" y="334.0" width="8" height="8"><Fill color="#FFF2F2F2"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Default>
+                    <PartDraw name="battery-6" x="0" y="0" width="450" height="450">
+                        <Ellipse x="245.0" y="334.0" width="8" height="8"><Fill color="#FF333333"/></Ellipse>
+                    </PartDraw>
+                </Default>
+            </Condition>
+            <Condition>
+                <Expressions>
+                    <Expression name="low">[BATTERY_PERCENT] &lt;= 15 &amp;&amp; [BATTERY_PERCENT] &gt; 70</Expression>
+                    <Expression name="lit">[BATTERY_PERCENT] &gt; 70</Expression>
+                </Expressions>
+                <Compare expression="low">
+                    <PartDraw name="battery-7-low" x="0" y="0" width="450" height="450">
+                        <Ellipse x="261.0" y="334.0" width="8" height="8"><Fill color="#FFD71921"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Compare expression="lit">
+                    <PartDraw name="battery-7-lit" x="0" y="0" width="450" height="450">
+                        <Ellipse x="261.0" y="334.0" width="8" height="8"><Fill color="#FFF2F2F2"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Default>
+                    <PartDraw name="battery-7" x="0" y="0" width="450" height="450">
+                        <Ellipse x="261.0" y="334.0" width="8" height="8"><Fill color="#FF333333"/></Ellipse>
+                    </PartDraw>
+                </Default>
+            </Condition>
+            <Condition>
+                <Expressions>
+                    <Expression name="low">[BATTERY_PERCENT] &lt;= 15 &amp;&amp; [BATTERY_PERCENT] &gt; 80</Expression>
+                    <Expression name="lit">[BATTERY_PERCENT] &gt; 80</Expression>
+                </Expressions>
+                <Compare expression="low">
+                    <PartDraw name="battery-8-low" x="0" y="0" width="450" height="450">
+                        <Ellipse x="277.0" y="334.0" width="8" height="8"><Fill color="#FFD71921"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Compare expression="lit">
+                    <PartDraw name="battery-8-lit" x="0" y="0" width="450" height="450">
+                        <Ellipse x="277.0" y="334.0" width="8" height="8"><Fill color="#FFF2F2F2"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Default>
+                    <PartDraw name="battery-8" x="0" y="0" width="450" height="450">
+                        <Ellipse x="277.0" y="334.0" width="8" height="8"><Fill color="#FF333333"/></Ellipse>
+                    </PartDraw>
+                </Default>
+            </Condition>
+            <Condition>
+                <Expressions>
+                    <Expression name="low">[BATTERY_PERCENT] &lt;= 15 &amp;&amp; [BATTERY_PERCENT] &gt; 90</Expression>
+                    <Expression name="lit">[BATTERY_PERCENT] &gt; 90</Expression>
+                </Expressions>
+                <Compare expression="low">
+                    <PartDraw name="battery-9-low" x="0" y="0" width="450" height="450">
+                        <Ellipse x="293.0" y="334.0" width="8" height="8"><Fill color="#FFD71921"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Compare expression="lit">
+                    <PartDraw name="battery-9-lit" x="0" y="0" width="450" height="450">
+                        <Ellipse x="293.0" y="334.0" width="8" height="8"><Fill color="#FFF2F2F2"/></Ellipse>
+                    </PartDraw>
+                </Compare>
+                <Default>
+                    <PartDraw name="battery-9" x="0" y="0" width="450" height="450">
+                        <Ellipse x="293.0" y="334.0" width="8" height="8"><Fill color="#FF333333"/></Ellipse>
+                    </PartDraw>
+                </Default>
+            </Condition>
+            <Variant mode="AMBIENT" target="alpha" value="0"/>
+        </Group>
+    </Scene>
+</WatchFace>

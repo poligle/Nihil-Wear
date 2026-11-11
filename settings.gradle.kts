@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "nihil-wear"
-include(":app")
+include(":app", ":watchface")

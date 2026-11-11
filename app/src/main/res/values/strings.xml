@@ -42,4 +42,17 @@
     <string name="rotary">Bezel or crown</string>
     <string name="rotary_hint">Turn it</string>
     <string name="rotary_ok">Reaches this app</string>
+
+    <!-- Home -->
+    <string name="home_deck">Deck</string>
+    <string name="home_pair">Pair with a computer</string>
+    <string name="home_pair_note" translatable="false">tools/watch invite</string>
+
+    <!-- The deck -->
+    <string name="deck_nothing">Nothing plays</string>
+    <string name="deck_muted">Muted</string>
+    <string name="deck_locked">%1$s is locked</string>
+    <string name="deck_unreachable">%1$s doesn’t answer</string>
+    <string name="deck_failed">%1$s didn’t do it</string>
+    <string name="deck_forgotten">%1$s forgot this watch</string>
 </resources>

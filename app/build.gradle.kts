@@ -9,10 +9,10 @@ plugins {
 // NIHIL for Android's are. Without it, the debug key: enough for your own watch.
 val releaseKeystore = System.getenv("NIHIL_KEYSTORE")?.let { file(it) }?.takeIf { it.isFile }
 
-// The version, the one thing to change for a release: MAJOR.MINOR.PATCH, or with -rc.N
-// for a pre-release. Android's versionCode comes from it, so it always goes up:
-// 0.1.0-rc.1 is 10001, 0.1.0 is 10099, 0.1.1-rc.1 is 10101.
-val nihilVersion = "0.1.0-rc.1"
+// The version is in gradle.properties, the watch face's too. Android's versionCode
+// comes from it, so it always goes up: 0.1.0-rc.1 is 10001, 0.1.0 is 10099,
+// 0.1.1-rc.1 is 10101.
+val nihilVersion = providers.gradleProperty("nihilVersion").get()
 
 fun versionCodeOf(name: String): Int {
     val match = Regex("""(\d+)\.(\d+)\.(\d+)(?:-rc\.(\d+))?""").matchEntire(name)

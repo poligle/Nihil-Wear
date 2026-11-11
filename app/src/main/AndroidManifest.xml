@@ -13,6 +13,14 @@
 
     <uses-feature android:name="android.hardware.type.watch" />
 
+    <!-- The watch's apps, for the list: those with an icon to open -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,15 +36,32 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
+        <!-- NIHIL on the watch: its icon, and the link NIHIL's watch face opens -->
         <activity
-            android:name=".ProbeActivity"
+            android:name=".HomeActivity"
             android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="nihil-wear" android:host="home" />
+            </intent-filter>
         </activity>
+
+        <activity
+            android:name=".DeckActivity"
+            android:exported="false" />
+
+        <!-- Exported so tools/watch can open it with adb's am start -->
+        <activity
+            android:name=".ProbeActivity"
+            android:exported="true"
+            android:launchMode="singleTask" />
 
         <!--
             The computer reaches the watch only through adb (tools/watch): the

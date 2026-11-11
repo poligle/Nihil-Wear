@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Watch Face Format 1, the one Wear OS 4 and everything after it read -->
+    <integer name="wff_version">1</integer>
+</resources>

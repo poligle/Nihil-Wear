@@ -38,4 +38,16 @@
     <string name="rotary">Bisel o corona</string>
     <string name="rotary_hint">Gíralo</string>
     <string name="rotary_ok">Llega a esta app</string>
+
+    <!-- Inicio -->
+    <string name="home_deck">Deck</string>
+    <string name="home_pair">Emparejar con un ordenador</string>
+
+    <!-- El deck -->
+    <string name="deck_nothing">No suena nada</string>
+    <string name="deck_muted">Silenciado</string>
+    <string name="deck_locked">%1$s está bloqueado</string>
+    <string name="deck_unreachable">%1$s no responde</string>
+    <string name="deck_failed">%1$s no lo ha hecho</string>
+    <string name="deck_forgotten">%1$s ha olvidado este reloj</string>
 </resources>

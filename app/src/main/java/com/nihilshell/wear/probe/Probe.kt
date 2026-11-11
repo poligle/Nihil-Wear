@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.os.Build
@@ -18,14 +17,13 @@ import com.nihilshell.wear.core.Way
 import com.nihilshell.wear.deck.Computer
 import com.nihilshell.wear.deck.DeckStore
 import com.nihilshell.wear.deck.Link
+import com.nihilshell.wear.deck.Wifi
 import org.json.JSONObject
-import java.io.Closeable
 import java.io.IOException
 import java.net.InetAddress
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.atomic.AtomicReference
 
 /**
@@ -249,47 +247,6 @@ class Probe(private val context: Context, run: Int, private val update: (Report)
         publish()
         Live.save(context, report)
         return report
-    }
-
-    /**
-     * Wi-Fi asked for, as Wear OS wants it for what Bluetooth can't do, and
-     * held until closed: how long it took to come up is part of the answer.
-     */
-    private class Wifi(private val connectivity: ConnectivityManager) : Closeable {
-        private val start = System.nanoTime()
-        private val up = AtomicLong(0L)
-        private val network = AtomicReference<Network?>()
-        private val done = CountDownLatch(1)
-        private val callback = object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                if (this@Wifi.network.compareAndSet(null, network)) up.set(System.nanoTime())
-                done.countDown()
-            }
-
-            override fun onUnavailable() = done.countDown()
-        }
-        private val asked = runCatching {
-            connectivity.requestNetwork(NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build(), callback, TIMEOUT)
-        }.isSuccess
-
-        /** Milliseconds until Wi-Fi was up, or null when it didn't come. */
-        val waited: Long?
-            get() = up.get().takeIf { it != 0L }?.let { Link.millis(start, it) }
-
-        /** Wi-Fi, once it is up, or null when it didn't come up in time. */
-        fun await(): Network? {
-            if (!asked) return null
-            done.await(TIMEOUT + 1000L, TimeUnit.MILLISECONDS)
-            return network.get()
-        }
-
-        override fun close() {
-            if (asked) runCatching { connectivity.unregisterNetworkCallback(callback) }
-        }
-
-        companion object {
-            const val TIMEOUT = 15_000
-        }
     }
 
     companion object {
