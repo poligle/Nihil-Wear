@@ -14,6 +14,9 @@
 #   tools/watch invite                a code from nihil-deck, to the watch: it
 #                                     pairs with this computer as the test opens
 #   tools/watch probe [--json]        opens the test, prints what it measured
+#   tools/watch halo                  the light on the edge over any screen:
+#                                     notification access and NIHIL's
+#                                     accessibility service, granted over adb
 #   tools/watch forget                the watch forgets this computer, and this
 #                                     computer the watch
 #
@@ -147,6 +150,20 @@ command_probe() {
     fail "The test hasn't finished in two minutes: is the watch's screen on, with NIHIL open?"
 }
 
+command_halo() {
+    local serial=$1 listener="$package/$package.system.GlyphListener" service="$package/$package.system.HaloService" enabled
+    adb -s "$serial" shell cmd notification allow_listener "$listener"
+    enabled=$(adb -s "$serial" shell settings get secure enabled_accessibility_services | tr -d '\r')
+    # Added to whatever else is on, never in its place.
+    case ":$enabled:" in
+        *":$service:"*) ;;
+        ":null:" | "::") adb -s "$serial" shell settings put secure enabled_accessibility_services "$service" ;;
+        *) adb -s "$serial" shell settings put secure enabled_accessibility_services "$enabled:$service" ;;
+    esac
+    adb -s "$serial" shell settings put secure accessibility_enabled 1
+    echo "The light on the edge is on: NIHIL has notification access and its accessibility service."
+}
+
 command_forget() {
     local serial=$1 device
     device=$(call "$serial" forget)
@@ -168,7 +185,7 @@ case ${1:-} in
         [ $# -eq 2 ] || usage
         adb connect "$2"
         ;;
-    install | invite | probe | forget)
+    install | invite | probe | halo | forget)
         serial=$(watch)
         "command_$1" "$serial" "${@:2}"
         ;;

@@ -10,6 +10,12 @@
 - The deck: the computer's music and its keys, its volume on the bezel or the crown and round
   the edge, its caffeine, night light and lock. Over the default network, or Wi-Fi asked for
   when that doesn't reach the computer, let go when the deck closes.
+- The light on the edge, as on the desktop and the phone: once round for a notification,
+  twice in red for a call, an alarm or a battery at 15, 10 or 5 %, two lights climbing for the
+  charger; over any screen with notification access and the accessibility service, which
+  `tools/watch halo` grants over adb. NIHIL only looks at which app posted and its category.
+- The bezel or the crown moves the list one app a click, never two.
+- Caffeine and night light are lit in ink while they are on, with no LED under them.
 - `tools/watch install` puts NIHIL and its watch face on the watch; the version of both is in
   `gradle.properties`.
 - The first screen: a network test, for the deck the watch will be. It measures how the

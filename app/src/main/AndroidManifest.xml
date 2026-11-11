@@ -63,6 +63,31 @@
             android:exported="true"
             android:launchMode="singleTask" />
 
+        <!-- Notification access, optional: which app posted and its category, never its text -->
+        <service
+            android:name=".system.GlyphListener"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <!-- The light on the edge over any screen: a window of the accessibility service's -->
+        <service
+            android:name=".system.HaloService"
+            android:exported="true"
+            android:label="@string/halo_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/halo_service" />
+        </service>
+
         <!--
             The computer reaches the watch only through adb (tools/watch): the
             pairing QR's invitation in, the test's report out. Exported for

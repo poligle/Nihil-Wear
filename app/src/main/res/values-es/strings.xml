@@ -50,4 +50,8 @@
     <string name="deck_unreachable">%1$s no responde</string>
     <string name="deck_failed">%1$s no lo ha hecho</string>
     <string name="deck_forgotten">%1$s ha olvidado este reloj</string>
+
+    <!-- La luz en el borde -->
+    <string name="halo_service_label">Luz de NIHIL</string>
+    <string name="halo_service_description">La luz en el borde para las notificaciones, las llamadas, la batería baja y el cargador, sobre cualquier pantalla. No lee nada de la pantalla.</string>
 </resources>

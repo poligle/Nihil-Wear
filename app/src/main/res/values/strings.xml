@@ -55,4 +55,8 @@
     <string name="deck_unreachable">%1$s doesn’t answer</string>
     <string name="deck_failed">%1$s didn’t do it</string>
     <string name="deck_forgotten">%1$s forgot this watch</string>
+
+    <!-- The light on the edge -->
+    <string name="halo_service_label">NIHIL’s light</string>
+    <string name="halo_service_description">The light on the edge for notifications, calls, a low battery and the charger, over any screen. It reads nothing on the screen.</string>
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  A window of its own for the light on the edge over any screen (HaloService).
+  It reads no content, and only listens to NIHIL's own windows.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeAnnouncement"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:canRetrieveWindowContent="false"
+    android:description="@string/halo_service_description"
+    android:notificationTimeout="1000"
+    android:packageNames="com.nihilshell.wear" />

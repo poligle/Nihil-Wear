@@ -47,6 +47,10 @@ code at all. Wear OS 4 or newer, the oldest that installs such a face.
 - **The deck.** The computer's music, with its keys; its volume on the bezel or the crown, a
   step a tick, shown by the LEDs round the edge; its caffeine, night light and lock. The state
   comes every few seconds while it shows, as on the phone.
+- **The light on the edge.** As on the desktop and the phone: once round the edge for each
+  notification; twice and in red for a call, an alarm or a battery running low (15, 10 and
+  5 %); two lights climbing from the bottom when the charger goes in. Over any screen, the face
+  too, with notification access and NIHIL's accessibility service (`tools/watch halo`).
 - **The network test.** How the watch reaches the computer: over the phone's Bluetooth and over
   Wi-Fi, each with a new connection and again on the same one, and how long mDNS takes to find
   it. Its report also comes out over adb.
@@ -58,7 +62,7 @@ the watch lets you choose one.
 
 ## Try it
 
-On the computer, NIHIL with the deck on (`nihil.deck.enable`, or Preferences, Phone), and
+On the computer, NIHIL with the deck on (`nihil.deck.enable`, or Preferences, Devices), and
 this repository. On the watch, developer options: Settings, About watch, tap the build
 number until they appear; then, in Developer options, **ADB debugging** and **Wireless
 debugging**, on the computer's Wi-Fi.
@@ -70,6 +74,7 @@ tools/watch connect 192.168.1.31:41209         # the address on Wireless debuggi
 tools/watch install                            # NIHIL and its watch face, debug builds
 tools/watch invite                             # the watch pairs with this computer
 tools/watch probe                              # the network test, and what it measured
+tools/watch halo                               # the light on the edge, over any screen
 ```
 
 Then hold the watch's face and choose NIHIL's. `tools/watch probe --json` prints the whole
@@ -98,7 +103,7 @@ From there the watch pairs as the phone does
 ([`docs/deck.md`](https://github.com/poligle/Nihil-Shell/blob/nihil/docs/deck.md)): TLS that
 trusts only the certificate of the pin, then the code, for a token of its own, kept encrypted
 with a key that never leaves the Android Keystore. To the computer it is one more device,
-listed in Preferences, Phone, and forgotten there as a phone is.
+listed in Preferences, Devices, and forgotten there as a phone is.
 
 ---
 
