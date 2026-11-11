@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- La prueba de red -->
+    <string name="probe_title">Prueba de red</string>
+    <string name="probe_measuring">Midiendo…</string>
+    <string name="probe_again">Toca para medir otra vez</string>
+    <string name="probe_unpaired">Sin emparejar. En el ordenador: tools/watch invite</string>
+    <string name="probe_pairing">Emparejando con %1$s…</string>
+    <string name="probe_pair_wrong">%1$s no ha aceptado el código: vuelve a invitar al reloj.</string>
+    <string name="probe_pair_expired">El código ha caducado: vuelve a invitar al reloj.</string>
+    <string name="probe_pair_wait">Demasiados intentos: espera un minuto.</string>
+    <string name="probe_pair_unreachable">%1$s no responde, ni por Bluetooth ni por Wi-Fi.</string>
+
+    <!-- Los caminos al ordenador -->
+    <string name="net_default">Red por defecto</string>
+    <string name="net_bluetooth">Bluetooth</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_cellular">Datos móviles</string>
+    <string name="net_ethernet">Ethernet</string>
+    <string name="net_other">Red</string>
+    <string name="net_none">Sin red</string>
+    <string name="detail_warm">luego %1$d ms</string>
+    <string name="detail_wifi">lista en %1$s s, luego %2$d ms</string>
+
+    <!-- Lo que ha fallado -->
+    <string name="error_timeout">No responde a tiempo</string>
+    <string name="error_refused">El ordenador la ha rechazado</string>
+    <string name="error_unreachable">No llega al ordenador</string>
+    <string name="error_pin">No es este ordenador</string>
+    <string name="error_unpaired">El ordenador ha olvidado este reloj</string>
+    <string name="error_wait">Demasiados intentos: espera un minuto</string>
+    <string name="error_unavailable">No se ha conectado ninguna Wi-Fi</string>
+    <string name="error_network">Sin red</string>
+    <string name="error_not_found">No lo encuentra</string>
+    <string name="error_other">Ha fallado: %1$s</string>
+
+    <!-- El bisel o la corona -->
+    <string name="rotary">Bisel o corona</string>
+    <string name="rotary_hint">Gíralo</string>
+    <string name="rotary_ok">Llega a esta app</string>
+</resources>

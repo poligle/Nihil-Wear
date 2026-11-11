@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">NIHIL</string>
+
+    <!-- The network test -->
+    <string name="probe_title">Network test</string>
+    <string name="probe_measuring">Measuring…</string>
+    <string name="probe_again">Tap to measure again</string>
+    <string name="probe_unpaired">Not paired. On the computer: tools/watch invite</string>
+    <string name="probe_pairing">Pairing with %1$s…</string>
+    <string name="probe_pair_wrong">%1$s didn’t take the code: invite the watch again.</string>
+    <string name="probe_pair_expired">The code ran out: invite the watch again.</string>
+    <string name="probe_pair_wait">Too many tries: wait a minute.</string>
+    <string name="probe_pair_unreachable">%1$s doesn’t answer, on Bluetooth or on Wi-Fi.</string>
+
+    <!-- The ways to the computer -->
+    <string name="net_default">Default network</string>
+    <string name="net_bluetooth">Bluetooth</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_cellular">Mobile data</string>
+    <string name="net_ethernet">Ethernet</string>
+    <string name="net_other">Network</string>
+    <string name="net_none">No network</string>
+    <string name="mdns" translatable="false">mDNS</string>
+    <string name="unit_ms" translatable="false">ms</string>
+    <string name="detail_warm">then %1$d ms</string>
+    <string name="detail_wifi">up in %1$s s, then %2$d ms</string>
+
+    <!-- What went wrong -->
+    <string name="error_timeout">No answer in time</string>
+    <string name="error_refused">The computer refused it</string>
+    <string name="error_unreachable">Doesn’t reach the computer</string>
+    <string name="error_pin">Not this computer</string>
+    <string name="error_unpaired">The computer forgot this watch</string>
+    <string name="error_wait">Too many tries: wait a minute</string>
+    <string name="error_unavailable">No Wi-Fi came up</string>
+    <string name="error_network">No network</string>
+    <string name="error_not_found">Not found</string>
+    <string name="error_other">Failed: %1$s</string>
+
+    <!-- The bezel or the crown -->
+    <string name="rotary">Bezel or crown</string>
+    <string name="rotary_hint">Turn it</string>
+    <string name="rotary_ok">Reaches this app</string>
+</resources>

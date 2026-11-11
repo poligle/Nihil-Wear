@@ -1,0 +1,174 @@
+#!/usr/bin/env bash
+# watch by poligle
+#
+# The computer's side of NIHIL for Wear OS, over adb's Wireless debugging:
+# the watch has no camera for the deck's QR, and adb is how an APK gets onto a
+# watch anyway. Inside nix develop, which brings adb and jq.
+#
+#   tools/watch pair HOST:PORT CODE   adb pairs with the watch: on it, Developer
+#                                     options, Wireless debugging, Pair new device
+#   tools/watch connect HOST:PORT     adb connects: the address on Wireless
+#                                     debugging's own screen
+#   tools/watch install [APK]         this checkout's debug build, or an APK
+#   tools/watch invite                a code from nihil-deck, to the watch: it
+#                                     pairs with this computer as the test opens
+#   tools/watch probe [--json]        opens the test, prints what it measured
+#   tools/watch forget                the watch forgets this computer, and this
+#                                     computer the watch
+#
+# With the phone on adb too, the watch is the device whose build says so;
+# NIHIL_WATCH=SERIAL picks one.
+
+set -euo pipefail
+
+package=com.nihilshell.wear
+provider=content://com.nihilshell.wear.shell
+root=$(cd "$(dirname "$0")/.." && pwd)
+
+fail() {
+    echo "$*" >&2
+    exit 1
+}
+
+need() {
+    command -v "$1" > /dev/null || fail "$1 isn't here: run tools/watch inside nix develop."
+}
+
+usage() {
+    sed -n '4,/^$/s/^# \{0,1\}//p' "$0"
+    exit 2
+}
+
+# The watch's serial on adb.
+watch() {
+    if [ -n "${NIHIL_WATCH:-}" ]; then
+        echo "$NIHIL_WATCH"
+        return
+    fi
+    local serial state found=()
+    while read -r serial state _; do
+        [ "$state" = device ] || continue
+        if adb -s "$serial" shell getprop ro.build.characteristics 2> /dev/null | grep -q watch; then
+            found+=("$serial")
+        fi
+    done < <(adb devices | tail -n +2)
+    case ${#found[@]} in
+        0) fail "No watch on adb: tools/watch pair, then tools/watch connect." ;;
+        1) echo "${found[0]}" ;;
+        *) fail "More than one watch on adb (${found[*]}): NIHIL_WATCH=SERIAL tools/watch …" ;;
+    esac
+}
+
+# One method of the watch's ShellProvider: the value of the one key it answers with.
+call() {
+    local serial=$1 method=$2 arg=${3:-} out
+    if [ -n "$arg" ]; then
+        out=$(adb -s "$serial" shell "content call --uri $provider --method $method --arg '$arg'")
+    else
+        out=$(adb -s "$serial" shell "content call --uri $provider --method $method")
+    fi
+    out=${out%$'\r'}
+    case $out in
+        "Result: Bundle[{"*"}]") ;;
+        *) fail "The watch said: $out" ;;
+    esac
+    out=${out#"Result: Bundle[{"}
+    out=${out%"}]"}
+    echo "${out#*=}"
+}
+
+open_test() {
+    adb -s "$1" shell input keyevent KEYCODE_WAKEUP
+    adb -s "$1" shell am start -n "$package/.ProbeActivity" > /dev/null
+}
+
+# The report as lines to read.
+pretty() {
+    jq -r '
+        def ms: if . == null then "-" else "\(.) ms" end;
+        def way($name):
+            if . == null then "\($name): not measured"
+            elif .cold == null then "\($name): \(.error // "failed")"
+            else "\($name): first \(.cold | ms), then \(.warm | ms), with the token \(.state | ms)"
+                + (if .waited != null then ", Wi-Fi up in \(.waited) ms" else "" end)
+                + ", at \(.address)"
+                + (if .error != null then ", but \(.error)" else "" end)
+            end;
+        "\(.computer // "No computer"), from \(.device) (API \(.sdk)): \(.state)"
+            + (if .pairing != null and .pairing != "paired" then ", pairing \(.pairing)" else "" end),
+        "  " + (.default | way("Default network (\(.network // "?"))")),
+        "  " + (.wifi | way("Wi-Fi asked for")),
+        "  mDNS (\(.mdns.network // "-")): "
+            + (if .mdns == null then "not tried"
+               elif .mdns.found != null then "found in \(.mdns.found) ms, at \(.mdns.address)"
+               else .mdns.error // "failed" end),
+        "  Bezel or crown: \(.rotary) turns while open"
+    '
+}
+
+command_install() {
+    local serial=$1 apk=${2:-}
+    if [ -z "$apk" ]; then
+        (cd "$root" && ./gradlew -q assembleDebug)
+        apk=$root/app/build/outputs/apk/debug/app-debug.apk
+    fi
+    adb -s "$serial" install -r "$apk"
+}
+
+command_invite() {
+    local serial=$1 uri name
+    need nihil-deck
+    uri=$(nihil-deck pair --json | jq -r '.uri // empty') || true
+    [ -n "$uri" ] || fail "nihil-deck gave no invitation: is the deck on? (nihil.deck.enable, Preferences, Phone)"
+    name=$(call "$serial" invite "$uri")
+    open_test "$serial"
+    echo "Invited by $name: the watch pairs as the test opens; tools/watch probe prints what it measured."
+}
+
+command_probe() {
+    local serial=$1 json=${2:-} before state want now run
+    read -r before state < <(call "$serial" report | jq -r '"\(.run // 0) \(.state)"')
+    # A test already running is the one to wait for; otherwise the next.
+    if [ "$state" = running ]; then want=$before; else want=$((before + 1)); fi
+    open_test "$serial"
+    for _ in $(seq 120); do
+        sleep 1
+        now=$(call "$serial" report)
+        read -r run state < <(jq -r '"\(.run // 0) \(.state)"' <<< "$now")
+        if [ "$run" -ge "$want" ] && [ "$state" != running ]; then
+            if [ "$json" = --json ]; then jq . <<< "$now"; else pretty <<< "$now"; fi
+            return
+        fi
+    done
+    fail "The test hasn't finished in two minutes: is the watch's screen on, with NIHIL open?"
+}
+
+command_forget() {
+    local serial=$1 device
+    device=$(call "$serial" forget)
+    if [ -n "$device" ] && command -v nihil-deck > /dev/null && nihil-deck forget "$device" > /dev/null; then
+        echo "The watch and this computer have forgotten each other."
+    else
+        echo "The watch has forgotten its computer."
+    fi
+}
+
+need adb
+need jq
+case ${1:-} in
+    pair)
+        [ $# -eq 3 ] || usage
+        adb pair "$2" "$3"
+        ;;
+    connect)
+        [ $# -eq 2 ] || usage
+        adb connect "$2"
+        ;;
+    install | invite | probe | forget)
+        serial=$(watch)
+        "command_$1" "$serial" "${@:2}"
+        ;;
+    *)
+        usage
+        ;;
+esac

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Opaque black, as the desktop's frame; the watch's own swipe closes it -->
+    <style name="Theme.Nihil" parent="@android:style/Theme.DeviceDefault.NoActionBar">
+        <item name="android:windowBackground">@color/nihil_void</item>
+        <item name="android:colorBackground">@color/nihil_void</item>
+        <item name="android:colorAccent">@color/nihil_ink</item>
+        <item name="android:textColorPrimary">@color/nihil_ink</item>
+    </style>
+</resources>
