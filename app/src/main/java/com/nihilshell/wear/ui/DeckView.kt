@@ -16,7 +16,6 @@ import android.view.ViewConfiguration
 import com.nihilshell.wear.R
 import com.nihilshell.wear.core.Turns
 import org.json.JSONObject
-import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.min
@@ -27,8 +26,9 @@ import kotlin.math.sin
  * The computer's deck on the watch: what plays and its keys; the bezel or
  * the crown turns the volume, which the LEDs round the edge show, as the
  * desktop's light goes round its frame; the computer's caffeine, night light
- * and lock under it, each with its LED. A LED before the computer's name says
- * whether it answers; what went wrong is said in ink, with a red LED before it.
+ * and lock under it, caffeine and night light lit in ink while they are on. A
+ * LED before the computer's name says whether it answers; what went wrong is
+ * said in ink, with a red LED before it.
  */
 class DeckView(context: Context) : View(context) {
     var name = ""
@@ -177,22 +177,23 @@ class DeckView(context: Context) : View(context) {
     private fun key(canvas: Canvas, name: String, x: Float, y: Float, radius: Float, size: Float) {
         keys[name] = floatArrayOf(x, y, radius)
         val down = pressed == name
+        val lit = on[name] == true
         ring.strokeWidth = size * 0.006f
-        ring.color = if (down) Nihil.INK else Nihil.LINE
-        dots.color = if (down) Nihil.RAISED else Nihil.SURFACE
+        ring.color = if (down || lit) Nihil.INK else Nihil.LINE
+        dots.color = when {
+            lit && down -> Nihil.DIM
+            lit -> Nihil.INK
+            down -> Nihil.RAISED
+            else -> Nihil.SURFACE
+        }
         canvas.drawCircle(x, y, radius, dots)
         canvas.drawCircle(x, y, radius, ring)
         val icon = icons[name]
         if (icon != null) {
             val half = (radius * 0.55f).roundToInt()
             icon.setBounds((x - half).roundToInt(), (y - half).roundToInt(), (x + half).roundToInt(), (y + half).roundToInt())
-            icon.setTint(Nihil.INK)
+            icon.setTint(if (lit) Nihil.VOID else Nihil.INK)
             icon.draw(canvas)
-            // Its LED, lit while it is on.
-            if (name != "lock") {
-                dots.color = if (on[name] == true) Nihil.INK else Nihil.OFF
-                canvas.drawCircle(x, y + radius + size * 0.028f, size * 0.009f, dots)
-            }
             return
         }
         dots.color = Nihil.INK
@@ -270,10 +271,10 @@ class DeckView(context: Context) : View(context) {
     /** The bezel or the crown: the volume, a step at a time, each with a tick. */
     override fun onGenericMotionEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_SCROLL && event.isFromSource(InputDevice.SOURCE_ROTARY_ENCODER)) {
-            val steps = turns.add(-event.getAxisValue(MotionEvent.AXIS_SCROLL))
+            val steps = turns.add(-event.getAxisValue(MotionEvent.AXIS_SCROLL)).coerceIn(-1, 1)
             if (steps != 0) {
                 performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
-                repeat(abs(steps)) { onTurn(if (steps > 0) 1 else -1) }
+                onTurn(steps)
             }
             return true
         }

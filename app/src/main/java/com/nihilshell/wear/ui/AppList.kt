@@ -13,6 +13,7 @@ import android.view.VelocityTracker
 import android.view.View
 import android.view.ViewConfiguration
 import android.widget.OverScroller
+import com.nihilshell.wear.core.Turns
 import java.util.Date
 import kotlin.math.abs
 import kotlin.math.max
@@ -51,7 +52,7 @@ class AppList(context: Context) : View(context) {
     private var dragging = false
     private var flinging = false
     private var centred = 0
-    private val settle = Runnable { snap() }
+    private val turns = Turns()
 
     init {
         isFocusable = true
@@ -171,17 +172,28 @@ class AppList(context: Context) : View(context) {
 
     override fun performClick(): Boolean = super.performClick()
 
-    /** The crown, a rotating bezel or a touch bezel: Wear OS gives them all as the same scroll. */
+    /**
+     * The crown, a rotating bezel or a touch bezel: Wear OS gives them all as the
+     * same scroll. A click of a bezel, or a whole turn's worth of a crown, is one
+     * line and never more, however far the watch would scroll a list for it.
+     */
     override fun onGenericMotionEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_SCROLL && event.isFromSource(InputDevice.SOURCE_ROTARY_ENCODER)) {
-            scroller.forceFinished(true)
-            flinging = false
-            move(-event.getAxisValue(MotionEvent.AXIS_SCROLL) * config.scaledVerticalScrollFactor)
-            removeCallbacks(settle)
-            postDelayed(settle, SETTLE)
+            val steps = turns.add(-event.getAxisValue(MotionEvent.AXIS_SCROLL)).coerceIn(-1, 1)
+            if (steps != 0) step(steps)
             return true
         }
         return super.onGenericMotionEvent(event)
+    }
+
+    /** One line up or down, from the one in the middle. */
+    private fun step(direction: Int) {
+        if (row <= 0f) return
+        scroller.forceFinished(true)
+        flinging = false
+        val target = (((offset / row).roundToInt() + direction) * row).coerceIn(0f, limit())
+        scroller.startScroll(0, offset.roundToInt(), 0, (target - offset).roundToInt(), Nihil.FAST.toInt())
+        postInvalidateOnAnimation()
     }
 
     private fun move(dy: Float) {
@@ -226,6 +238,5 @@ class AppList(context: Context) : View(context) {
 
     companion object {
         private const val ROW = 0.15f
-        private const val SETTLE = 140L
     }
 }

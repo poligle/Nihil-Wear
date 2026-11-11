@@ -87,8 +87,8 @@ def deck(level=40, playing=True, caffeine=True, night=False):
     draw.text((cx, cy - S * 0.165), "Track title", font=font("SpaceGrotesk-Medium.ttf", S * 0.064), fill=INK, anchor="ms")
     draw.text((cx, cy - S * 0.1), "Artist", font=font("SpaceMono-Regular.ttf", S * 0.04), fill=MUTED, anchor="ms")
 
-    def key(x, y, r):
-        draw.ellipse((x - r, y - r, x + r, y + r), fill=SURFACE, outline=LINE, width=max(1, round(S * 0.006)))
+    def key(x, y, r, lit=False):
+        draw.ellipse((x - r, y - r, x + r, y + r), fill=INK if lit else SURFACE, outline=INK if lit else LINE, width=max(1, round(S * 0.006)))
 
     for x, r in ((cx - S * 0.2, S * 0.062), (cx, S * 0.085), (cx + S * 0.2, S * 0.062)):
         key(x, cy + S * 0.03, r)
@@ -108,16 +108,16 @@ def deck(level=40, playing=True, caffeine=True, night=False):
     y = cy + S * 0.305
     r = S * 0.058
     for x, which in ((cx - S * 0.16, "caffeine"), (cx, "night"), (cx + S * 0.16, "lock")):
-        key(x, y, r)
+        lit = {"caffeine": caffeine, "night": night}.get(which, False)
+        key(x, y, r, lit)
         g = r * 0.5
+        ink, ground = (VOID, INK) if lit else (INK, SURFACE)
         if which == "caffeine":
-            draw.rounded_rectangle((x - g * 0.8, y - g * 0.55, x + g * 0.35, y + g * 0.75), radius=g * 0.2, fill=INK)
-            draw.arc((x + g * 0.05, y - g * 0.3, x + g * 0.85, y + g * 0.4), -90, 90, fill=INK, width=max(2, round(g * 0.22)))
-            dot(draw, x, y + r + S * 0.028, S * 0.009, INK if caffeine else OFF)
+            draw.rounded_rectangle((x - g * 0.8, y - g * 0.55, x + g * 0.35, y + g * 0.75), radius=g * 0.2, fill=ink)
+            draw.arc((x + g * 0.05, y - g * 0.3, x + g * 0.85, y + g * 0.4), -90, 90, fill=ink, width=max(2, round(g * 0.22)))
         elif which == "night":
-            dot(draw, x, y, g * 0.8, INK)
-            dot(draw, x + g * 0.38, y - g * 0.3, g * 0.66, SURFACE)
-            dot(draw, x, y + r + S * 0.028, S * 0.009, INK if night else OFF)
+            dot(draw, x, y, g * 0.8, ink)
+            dot(draw, x + g * 0.38, y - g * 0.3, g * 0.66, ground)
         else:
             draw.rounded_rectangle((x - g * 0.7, y - g * 0.1, x + g * 0.7, y + g * 0.85), radius=g * 0.15, fill=INK)
             draw.arc((x - g * 0.45, y - g * 0.75, x + g * 0.45, y + g * 0.35), 180, 360, fill=INK, width=max(2, round(g * 0.22)))
