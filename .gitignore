@@ -13,3 +13,5 @@ result
 *.jks
 *.keystore
 keystore.properties
+*.jks
+*.keystore

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Releases: a tag builds and signs NIHIL and its watch face and publishes both with
+  `SHA256SUMS` (`RELEASING.md`), which `nihil watch` on the computer installs: it finds the
+  watch's Wireless debugging on the network, so only its code is typed, and invites it.
 - NIHIL's watch face, in Watch Face Format 1: the time in dots, sixty LEDs round the edge with
   the seconds lit, the battery as ten LEDs, red at 15 % or less, and a LED for what is unread.
   A tap on the time opens NIHIL. Drawn by `tools/watchface.py`, its own APK.

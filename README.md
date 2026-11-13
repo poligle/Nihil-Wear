@@ -60,9 +60,27 @@ the watch lets you choose one.
 
 ---
 
+## Install
+
+On the computer, NIHIL with the deck on (Preferences, Devices). On the watch, developer
+options: Settings, About watch, tap the build number until they appear; then, in Developer
+options, **ADB debugging** and **Wireless debugging**, on the computer's Wi-Fi, and **Pair new
+device**. On the computer, Preferences, Devices, **Install on a watch**, or:
+
+```sh
+nihil watch            # pairs, installs the latest release and its face, invites the watch
+nihil watch update     # a newer release on a watch already paired
+nihil watch forget     # the watch and the computer forget each other
+```
+
+It finds the watch on the network, so only the code the watch shows is typed; installs the
+newest release with its face, checked against the release's `SHA256SUMS`; hands the watch the
+deck's invitation and turns on the light on the edge. Then hold the watch's face and choose
+NIHIL's. Releases: `RELEASING.md`.
+
 ## Try it
 
-On the computer, NIHIL with the deck on (`nihil.deck.enable`, or Preferences, Devices), and
+To try this checkout instead: on the computer, NIHIL with the deck on (`nihil.deck.enable`, or Preferences, Devices), and
 this repository. On the watch, developer options: Settings, About watch, tap the build
 number until they appear; then, in Developer options, **ADB debugging** and **Wireless
 debugging**, on the computer's Wi-Fi.
