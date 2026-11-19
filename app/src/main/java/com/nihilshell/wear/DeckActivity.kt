@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.nihilshell.wear.deck.Bluetooth
 import com.nihilshell.wear.deck.Computer
 import com.nihilshell.wear.deck.Deck
 import com.nihilshell.wear.deck.DeckStore
@@ -57,6 +58,7 @@ class DeckActivity : Activity() {
         if (deck == null) return
         view.requestFocus()
         main.post(poll)
+        askForBluetooth()
     }
 
     override fun onPause() {
@@ -70,7 +72,28 @@ class DeckActivity : Activity() {
         super.onDestroy()
     }
 
-    private fun refresh() = request("GET", "/v1/state") { view.state(it) }
+    private fun refresh() = request("GET", "/v1/state") {
+        learn(it)
+        view.state(it)
+    }
+
+    /** What the computer says of its Bluetooth, kept: the deck reaches it so when no network does. */
+    private fun learn(state: JSONObject?) {
+        if (state == null) return
+        val psm = Bluetooth.psm(state.optJSONObject("ble"), computer.pin)
+        if (psm == computer.psm) return
+        computer.psm = psm
+        DeckStore.get(this).save(computer)
+        askForBluetooth()
+    }
+
+    /** Once, when the computer is on Bluetooth: Wear OS's question for nearby devices. */
+    private fun askForBluetooth() {
+        val store = DeckStore.get(this)
+        if (deck == null || computer.psm == null || store.askedBluetooth || Bluetooth.allowed(this)) return
+        store.askedBluetooth = true
+        requestPermissions(Bluetooth.PERMISSIONS, REQUEST_BLUETOOTH)
+    }
 
     private fun key(key: String) {
         when (key) {
@@ -120,5 +143,6 @@ class DeckActivity : Activity() {
 
     companion object {
         private const val POLL = 2500L
+        private const val REQUEST_BLUETOOTH = 3
     }
 }

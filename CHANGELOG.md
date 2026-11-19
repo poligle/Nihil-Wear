@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- The deck straight to the computer over Bluetooth LE, when the default network doesn't reach
+  it and before asking for Wi-Fi: found by the UUID its pin makes, a channel to it (L2CAP) on
+  the PSM its invitation or its state gives, with the same TLS, pinned the same, and the same
+  requests (`deck/Bluetooth.kt`, `core/Tls.kt`). Nothing to pair in the watch's settings; Wear
+  OS asks once for nearby devices. It needs NIHIL on the computer with **Without a network,
+  over Bluetooth** on.
 - Releases: a tag builds and signs NIHIL and its watch face and publishes both with
   `SHA256SUMS` (`RELEASING.md`), which `nihil watch` on the computer installs: it finds the
   watch's Wireless debugging on the network, so only its code is typed, and invites it.

@@ -2,10 +2,18 @@
 
 ## How the watch reaches the computer
 
-A watch has two ways: the phone's Bluetooth, which Wear OS uses on its own, and Wi-Fi, which it
-brings up when an app asks for it. The deck tries the default network first and asks for Wi-Fi
-only when the computer isn't there; it keeps one connection open while it shows, as the
-computer keeps them, and lets the connection and the Wi-Fi go when it closes.
+A watch has three ways: the phone's Bluetooth, which Wear OS uses on its own; Bluetooth LE
+straight to the computer, when NIHIL there is on it and near; and Wi-Fi, which Wear OS brings up
+when an app asks for it. The deck tries them in that order, and asks for Wi-Fi only when neither
+of the others reaches the computer: it is the slowest to come up and the dearest on the
+battery. It keeps one connection open while it shows, as the computer keeps them, and lets the
+connection and the Wi-Fi go when it closes.
+
+Straight to the computer, there is nothing to pair in the watch's Bluetooth settings: it is
+found by the UUID its pin makes, and its LE channel (the PSM in its invitation, or in its
+answers) carries the same TLS, checked by the same pin, and the same requests. The watch asks
+once for nearby devices, the first time the deck opens with a computer that is on Bluetooth.
+The network test doesn't measure that way yet.
 
 ## How the computer reaches the watch
 

@@ -12,7 +12,10 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
-/** The computer this watch is a deck of: what its invitation said, and the address that answered last. */
+/**
+ * The computer this watch is a deck of: what its invitation said, the address
+ * that answered last, and the LE channel it takes over Bluetooth, if it is on it.
+ */
 class Computer(
     val name: String,
     val pin: String,
@@ -20,6 +23,7 @@ class Computer(
     val hosts: List<String>,
     var last: String?,
     val device: String,
+    var psm: Int? = null,
 )
 
 /**
@@ -35,7 +39,10 @@ class DeckStore private constructor(context: Context) {
         get() = runCatching {
             val o = JSONObject(sp.getString(COMPUTER, null) ?: return null)
             val hosts = o.getJSONArray("hosts").let { a -> List(a.length()) { a.getString(it) } }
-            Computer(o.getString("name"), o.getString("pin"), o.getInt("port"), hosts, o.optString("last").ifEmpty { null }, o.getString("device"))
+            Computer(
+                o.getString("name"), o.getString("pin"), o.getInt("port"), hosts, o.optString("last").ifEmpty { null }, o.getString("device"),
+                o.optInt("psm").takeIf { it > 0 },
+            )
         }.getOrNull()
 
     /** The token, or null when there is none or it can't be read back (a reset Keystore). */
@@ -54,6 +61,7 @@ class DeckStore private constructor(context: Context) {
             .put("hosts", JSONArray(computer.hosts))
             .put("last", computer.last ?: "")
             .put("device", computer.device)
+            .put("psm", computer.psm ?: 0)
         val edit = sp.edit().putString(COMPUTER, o.toString())
         if (token != null) {
             val cipher = Cipher.getInstance(CIPHER)
@@ -68,6 +76,11 @@ class DeckStore private constructor(context: Context) {
     fun forget() {
         sp.edit().remove(COMPUTER).remove(TOKEN).remove(INVITATION).apply()
     }
+
+    /** Whether Wear OS was asked once for nearby devices, for the computer over Bluetooth. */
+    var askedBluetooth: Boolean
+        get() = sp.getBoolean(ASKED_BLUETOOTH, false)
+        set(value) = sp.edit().putBoolean(ASKED_BLUETOOTH, value).apply()
 
     /** The invitation adb handed over (tools/watch invite), as its text, until it pairs or can't any more. */
     var invitation: String?
@@ -93,6 +106,7 @@ class DeckStore private constructor(context: Context) {
         private const val COMPUTER = "computer"
         private const val TOKEN = "token"
         private const val INVITATION = "invitation"
+        private const val ASKED_BLUETOOTH = "asked_bluetooth"
         private const val KEYSTORE = "AndroidKeyStore"
         private const val ALIAS = "nihil-deck-token"
         private const val CIPHER = "AES/GCM/NoPadding"

@@ -43,7 +43,7 @@ class Link(private val network: Network, private val port: Int, private val pin:
             }
     }
 
-    private val tls: SSLContext by lazy { SSLContext.getInstance("TLS").apply { init(null, arrayOf(Pinned(pin)), null) } }
+    private val tls: SSLContext by lazy { tls(pin) }
 
     fun open(address: InetAddress): Open {
         val plain = Socket()
@@ -90,6 +90,9 @@ class Link(private val network: Network, private val port: Int, private val pin:
         const val READ_TIMEOUT = 9000
 
         fun millis(from: Long, to: Long): Long = (to - from + 500_000) / 1_000_000
+
+        /** TLS that trusts the pin's key alone, over a network or Bluetooth. */
+        fun tls(pin: String): SSLContext = SSLContext.getInstance("TLS").apply { init(null, arrayOf(Pinned(pin)), null) }
 
         /**
          * Why a way stopped, in the report's words: pin (not this computer),

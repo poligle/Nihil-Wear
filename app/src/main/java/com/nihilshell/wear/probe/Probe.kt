@@ -14,6 +14,7 @@ import com.nihilshell.wear.core.Mdns
 import com.nihilshell.wear.core.Report
 import com.nihilshell.wear.core.Round
 import com.nihilshell.wear.core.Way
+import com.nihilshell.wear.deck.Bluetooth
 import com.nihilshell.wear.deck.Computer
 import com.nihilshell.wear.deck.DeckStore
 import com.nihilshell.wear.deck.Link
@@ -101,7 +102,8 @@ class Probe(private val context: Context, run: Int, private val update: (Report)
                 val json = runCatching { JSONObject(reply.text) }.getOrNull()
                 if (reply.status != 200 || json == null) return json?.optString("error")?.takeIf { it.isNotEmpty() } ?: UNREACHABLE
                 val name = json.optString("name").ifEmpty { invitation.name }
-                store.save(Computer(name, invitation.pin, invitation.port, invitation.hosts, open.host, json.optString("device")), json.getString("token"))
+                val psm = if (json.has("ble")) Bluetooth.psm(json.optJSONObject("ble"), invitation.pin) else invitation.psm
+                store.save(Computer(name, invitation.pin, invitation.port, invitation.hosts, open.host, json.optString("device"), psm), json.getString("token"))
                 return "paired"
             } catch (e: Exception) {
                 continue

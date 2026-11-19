@@ -9,7 +9,8 @@
   middle is lit in ink and the rest stays grey, as the desktop's apps do.
 - **The deck.** The computer's music, with its keys; its volume on the bezel or the crown, a
   step a tick, shown by the LEDs round the edge; its caffeine, night light and lock. The state
-  comes every few seconds while it shows, as on the phone.
+  comes every few seconds while it shows, as on the phone. When the phone's Bluetooth doesn't
+  reach the computer, the deck goes straight to it over Bluetooth LE, or over Wi-Fi asked for.
 - **The light on the edge.** As on the desktop and the phone: once round the edge for each
   notification; twice and in red for a call, an alarm or a battery running low (15, 10 and
   5 %); two lights climbing from the bottom when the charger goes in. Over any screen, the face

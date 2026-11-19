@@ -3,6 +3,8 @@
         INTERNET only for the deck: this watch talks to the computer it was
         paired with, on the local network, and nothing else. The network's
         state, and the right to ask for Wi-Fi, to measure both ways to it.
+        Bluetooth for the same computer when no network reaches it: to find
+        it by the UUID its pin makes, never where it is, and open a channel.
     -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
@@ -10,8 +12,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
 
     <!-- The watch's apps, for the list: those with an icon to open -->
     <queries>

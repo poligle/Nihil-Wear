@@ -48,6 +48,17 @@ class InvitationTest {
     }
 
     @Test
+    fun readsWhereOverBluetoothWhenTheUuidIsThePins() {
+        val uuid = Ble.uuid(pin)
+        assertEquals("3d584b8e-5936-80b5-8114-c814fc5d2506", uuid.toString())
+        assertEquals(129, Invitation.parse("$qr&ble=$uuid&psm=129")?.psm)
+        assertNull(Invitation.parse(qr)?.psm)
+        assertNull(Invitation.parse("$qr&ble=00000000-0000-8000-8000-000000000000&psm=129")?.psm)
+        assertNull(Invitation.parse("$qr&ble=$uuid&psm=7")?.psm)
+        assertNull(Invitation.parse("$qr&psm=129")?.psm)
+    }
+
+    @Test
     fun readsAddressesWithoutLookingThemUp() {
         assertArrayEquals(byteArrayOf(192.toByte(), 168.toByte(), 1, 20), Ipv4.parse("192.168.1.20"))
         assertArrayEquals(byteArrayOf(0, 0, 0, 0), Ipv4.parse("0.0.0.0"))
